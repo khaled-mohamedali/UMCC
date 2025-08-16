@@ -1,0 +1,14 @@
+{
+    "containerName": "24f76c3b-0a52-4557-8f1a-db785f1b",
+    "sshPort": 22,
+    "sshHost": "canvas.canvas-24f76c3b-0a52-4557-8f1a-db785f1bcb0b",
+    "sshUser": "root",
+    "jumpProxy": "24f76c3b-0a52-4557-8f1a-db785f1b@canvas.ssh.tempo.build",
+    "workspacePath": "/app",
+    "tempoCanvasId": "24f76c3b-0a52-4557-8f1a-db785f1bcb0b",
+    "install_command": "npm install",
+    "run_command": "npm run dev -- --host 0.0.0.0 --port 3000",
+    "git_remote": "https://github.com/khaled-mohamedali/UMCC.git",
+    "git_branch": "main",
+    "dev_server_port": "3000"
+}
