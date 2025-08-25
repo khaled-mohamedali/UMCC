@@ -9,7 +9,7 @@ interface CountdownWidgetProps {
     timestamp: number;
     previousTimestamp?: number; // Add this prop for previous prayer
   };
-  currentTime?: number;
+  hijriDate?: string;
 }
 
 const CountdownWidget = ({ nextPrayer }: CountdownWidgetProps) => {
