@@ -15,6 +15,7 @@ interface PrayerDashboardProps {
     timeRemaining: string;
     percentage?: number;
   };
+  setHijriDate?: (date: string) => void; // <-- Add this line
 }
 
 const PrayerDashboard: React.FC<PrayerDashboardProps> = (props) => {
@@ -63,6 +64,9 @@ const PrayerDashboard: React.FC<PrayerDashboardProps> = (props) => {
           const h = data.data.hijri;
           setGregorianDate(`${g.day} ${g.month.en}, ${g.year}`);
           setHijriDate(`${h.day} ${h.month.en}, ${h.year}`);
+          if (props.setHijriDate) {
+            props.setHijriDate(`${h.day} ${h.month.en}, ${h.year}`);
+          }
         }
       });
   }, []);
@@ -133,7 +137,7 @@ const PrayerDashboard: React.FC<PrayerDashboardProps> = (props) => {
 
         {/* Countdown Widget */}
         <div className="w-full lg:w-1/2">
-          <CountdownWidget nextPrayer={nextPrayerObj} />
+          <CountdownWidget nextPrayer={nextPrayerObj} hijriDate={hijriDate} />
         </div>
       </div>
 

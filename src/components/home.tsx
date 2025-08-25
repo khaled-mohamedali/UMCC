@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import PrayerDashboard from "./PrayerDashboard";
 import QuickAccessPanel from "./QuickAccessPanel";
 
 const Home = () => {
   const currentYear = new Date().getFullYear();
+  const [hijriDate, setHijriDate] = useState("");
   return (
     <div className="min-h-screen bg-background p-4 md:p-8 flex flex-col gap-6">
       <header className="flex flex-col md:flex-row justify-between items-center gap-4 mb-4">
@@ -29,13 +30,13 @@ const Home = () => {
           </div>
           <div className="bg-card rounded-lg p-3 shadow-sm border">
             <p className="text-sm text-muted-foreground">Hijri</p>
-            <p className="font-medium">7 Shawwal, 1445</p>
+            <p className="font-medium">{hijriDate || "Loading..."}</p>
           </div>
         </div>
       </header>
 
       <main className="flex-1">
-        <PrayerDashboard />
+        <PrayerDashboard setHijriDate={setHijriDate} />
       </main>
 
       <footer className="mt-6">
