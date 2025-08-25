@@ -1,25 +1,18 @@
-import React, { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
-import { Clock, AlarmClock } from "lucide-react";
+import { Clock } from "lucide-react";
+import { useEffect, useState } from "react";
 
 interface CountdownWidgetProps {
   nextPrayer?: {
     name: string;
     time: string;
     timestamp: number;
+    previousTimestamp?: number; // Add this prop for previous prayer
   };
   currentTime?: number;
 }
 
-const CountdownWidget = ({
-  nextPrayer = {
-    name: "Dhuhr",
-    time: "1:30 PM",
-    timestamp: Date.now() + 3600000, // 1 hour from now
-  },
-  currentTime = Date.now(),
-}: CountdownWidgetProps) => {
+const CountdownWidget = ({ nextPrayer }: CountdownWidgetProps) => {
   const [timeRemaining, setTimeRemaining] = useState<{
     hours: number;
     minutes: number;
@@ -37,15 +30,21 @@ const CountdownWidget = ({
   useEffect(() => {
     // Calculate initial time difference
     const calculateTimeRemaining = () => {
-      const diff = Math.max(0, nextPrayer.timestamp - Date.now());
+      const now = Date.now();
+      const diff = Math.max(0, nextPrayer.timestamp - now);
       const totalSeconds = Math.floor(diff / 1000);
       const hours = Math.floor(totalSeconds / 3600);
       const minutes = Math.floor((totalSeconds % 3600) / 60);
       const seconds = totalSeconds % 60;
 
-      // Assuming a 5-hour max interval between prayers for progress calculation
-      const maxInterval = 5 * 60 * 60; // 5 hours in seconds
-      const progress = 100 - Math.min(100, (totalSeconds / maxInterval) * 100);
+      // Use actual interval between previous and next prayer
+      let progress = 0;
+      if (nextPrayer.previousTimestamp) {
+        const totalInterval =
+          nextPrayer.timestamp - nextPrayer.previousTimestamp;
+        const elapsed = now - nextPrayer.previousTimestamp;
+        progress = Math.min(100, (elapsed / totalInterval) * 100);
+      }
 
       return { hours, minutes, seconds, totalSeconds, progress };
     };
@@ -65,7 +64,7 @@ const CountdownWidget = ({
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [nextPrayer.timestamp]);
+  }, [nextPrayer.timestamp, nextPrayer.previousTimestamp]);
 
   const formatNumber = (num: number) => {
     return num.toString().padStart(2, "0");

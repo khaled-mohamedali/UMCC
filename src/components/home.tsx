@@ -3,6 +3,7 @@ import PrayerDashboard from "./PrayerDashboard";
 import QuickAccessPanel from "./QuickAccessPanel";
 
 const Home = () => {
+  const currentYear = new Date().getFullYear();
   return (
     <div className="min-h-screen bg-background p-4 md:p-8 flex flex-col gap-6">
       <header className="flex flex-col md:flex-row justify-between items-center gap-4 mb-4">
@@ -15,9 +16,7 @@ const Home = () => {
             />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-foreground">
-              UMCC
-            </h1>
+            <h1 className="text-2xl font-bold text-foreground">UMCC</h1>
             <p className="text-sm text-muted-foreground">
               University Masjid Community Center
             </p>
@@ -44,7 +43,7 @@ const Home = () => {
       </footer>
 
       <div className="mt-4 text-center text-xs text-muted-foreground">
-        <p>© 2024 Al-Noor Mosque. All rights reserved.</p>
+        <p>© Dev Circuit {currentYear}. All rights reserved.</p>
       </div>
     </div>
   );
