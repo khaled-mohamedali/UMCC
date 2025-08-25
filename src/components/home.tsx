@@ -5,6 +5,11 @@ import QuickAccessPanel from "./QuickAccessPanel";
 const Home = () => {
   const currentYear = new Date().getFullYear();
   const [hijriDate, setHijriDate] = useState("");
+  const gregorianDate = new Date().toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
   return (
     <div className="min-h-screen bg-background p-4 md:p-8 flex flex-col gap-6">
       <header className="flex flex-col md:flex-row justify-between items-center gap-4 mb-4">
@@ -26,7 +31,7 @@ const Home = () => {
         <div className="flex flex-col md:flex-row items-center gap-4">
           <div className="bg-card rounded-lg p-3 shadow-sm border">
             <p className="text-sm text-muted-foreground">Gregorian</p>
-            <p className="font-medium">May 15, 2024</p>
+            <p className="font-medium">{gregorianDate}</p>
           </div>
           <div className="bg-card rounded-lg p-3 shadow-sm border">
             <p className="text-sm text-muted-foreground">Hijri</p>
